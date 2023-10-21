@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.10.xsd">
+
+    <changeSet id="create-table-transactions" author="GeraskinDS">
+        <createTable schemaName="wallet_service" tableName="transactions">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="UUID">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="personal_account_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="personal_accounts_id_fk"
+                             references="personal_accounts(id)"/>
+            </column>
+            <column name="create_at" type="TIMESTAMP"/>
+            <column name="accept" type="BOOLEAN"/>
+            <column name="transaction_type" type="wallet_service.transaction_type"/>
+            <column name="amount" type="NUMERIC(4)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
